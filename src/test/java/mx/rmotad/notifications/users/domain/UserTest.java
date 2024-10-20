@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-
 @Slf4j
 class UserTest {
 
@@ -23,10 +22,11 @@ class UserTest {
   }
 
   @Test
-  void createUser_allNull_success() throws IllegalAccessException {
+  void createUser_allNull_success() {
     var u = IntStream.range(0, 3)
         .mapToObj(i -> new User(UUID.randomUUID().toString(), "", "", "", null, null))
         .collect(Collectors.toList());
     log.info("{}", u);
+
   }
 }
