@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "notifications-app.users")
-@Getter@Setter
+@Getter
+@Setter
 public class UsersConfig {
 
   Map<Category, List<User>> defaultUsers;

@@ -1,7 +1,5 @@
 package mx.rmotad.notifications.notification.application.service;
 
-import java.util.List;
-import mx.rmotad.notifications.notification.application.dto.UserDTO;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 
 /**
@@ -11,7 +9,6 @@ public interface NotificationProducer {
 
   /**
    * @param notification
-   * @param users
    */
-  void notifyUsers(NotificationDomain notification, List<UserDTO> users);
+  void notifyCreated(NotificationDomain notification);
 }

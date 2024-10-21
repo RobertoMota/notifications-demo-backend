@@ -1,27 +1,19 @@
 package mx.rmotad.notifications.notification.application;
 
 import static mx.rmotad.notifications.common.enums.NotificationCategory.SPORTS;
-import static mx.rmotad.notifications.notification.NotificationTestUtils.getRandomUserList;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import java.time.Instant;
-import java.util.Collections;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
-import mx.rmotad.notifications.common.enums.NotificationChannel;
-import mx.rmotad.notifications.notification.application.service.INotificationProducerFactory;
 import mx.rmotad.notifications.notification.application.service.IUserService;
 import mx.rmotad.notifications.notification.application.service.NotificationProducer;
 import mx.rmotad.notifications.notification.domain.HashGenerator;
@@ -36,23 +28,23 @@ import org.junit.jupiter.params.provider.EnumSource;
 class BaseNotificationDomainUseCasesTest {
 
   public static final String MESSAGE = "some category related message";
+
   private NotificationRepository repository;
   private IUserService userService;
-  private INotificationProducerFactory INotificationProducerFactory;
+  private NotificationProducer notificationProducer;
   private BaseNotificationUseCases service;
 
   private NotificationProducer producer;
-  private HashGenerator hasBuilder;
+  private HashGenerator hashBuilder;
 
   @BeforeEach
   void setUp() {
-    producer = mock(NotificationProducer.class);
     repository = mock(NotificationRepository.class);
-    hasBuilder = mock(HashGenerator.class);
+    hashBuilder = mock(HashGenerator.class);
     userService = mock(IUserService.class);
-    INotificationProducerFactory = mock(INotificationProducerFactory.class);
+    notificationProducer = mock(NotificationProducer.class);
     service = new BaseNotificationUseCases(
-        repository, hasBuilder, userService, INotificationProducerFactory);
+        repository, hashBuilder, userService, notificationProducer);
   }
 
   @ParameterizedTest
@@ -60,41 +52,20 @@ class BaseNotificationDomainUseCasesTest {
   void testNewNotification_UseCase_whenEverythingIsOk_success(NotificationCategory category) {
     doNothing().when(repository).save(any(NotificationDomain.class));
 
-    when(userService.getUsersByCategory(any(NotificationCategory.class))).thenReturn(
-        getRandomUserList());
-    doReturn(producer).when(INotificationProducerFactory)
-        .getProducerForChannel(any(NotificationChannel.class));
+    doNothing().when(notificationProducer)
+        .notifyCreated(any(NotificationDomain.class));
 
     var notification = service.newNotificationUseCase(category, MESSAGE);
+
     assertNotNull(notification);
     assertNotNull(notification.id());
-    assertTrue(UlidCreator.getUlid().toLowerCase().compareTo(notification.id()) > 0);
     assertTrue(Instant.now().compareTo(notification.createdAt()) > 0);
 
     verify(repository).save(any(NotificationDomain.class));
-    verify(userService).getUsersByCategory(any(NotificationCategory.class));
+    verify(notificationProducer).notifyCreated(any(NotificationDomain.class));
 
-    verify(INotificationProducerFactory, times(NotificationChannel.values().length)).
-        getProducerForChannel(any(NotificationChannel.class));
-    verify(producer, times(NotificationChannel.values().length)).notifyUsers(
-        any(NotificationDomain.class),
-        anyList());
   }
 
-  @Test
-  void testNewNotification_UseCase_whenNotSubscribedUsers_success() {
-    doNothing().when(repository).save(any(NotificationDomain.class));
-    when(userService.getUsersByCategory(any(NotificationCategory.class))).thenReturn(
-        Collections.emptyList());
-
-    var notification = service.newNotificationUseCase(SPORTS, MESSAGE);
-    assertNotNull(notification);
-
-    verify(repository).save(any(NotificationDomain.class));
-    verify(userService).getUsersByCategory(any(NotificationCategory.class));
-    verify(INotificationProducerFactory, never()).getProducerForChannel(
-        any(NotificationChannel.class));
-  }
 
   @Test
   void testNewNotification_UseCase_whenAlreadyExists_error() {
@@ -106,8 +77,7 @@ class BaseNotificationDomainUseCasesTest {
 
     verify(repository, never()).save(any());
     verify(userService, never()).getUsersByCategory(any());
-    verify(INotificationProducerFactory, never()).getProducerForChannel(
-        any(NotificationChannel.class));
-
+    verify(notificationProducer, never())
+        .notifyCreated(any(NotificationDomain.class));
   }
 }

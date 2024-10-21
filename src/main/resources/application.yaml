@@ -8,6 +8,8 @@ spring.application.name: notification-demo
 #  database: "notification-app"
 
 spring:
+  rabbitmq:
+
   data:
     mongodb:
       uri: "mongodb://webapp:MyDataAcc3ss#@localhost:27017/admin"

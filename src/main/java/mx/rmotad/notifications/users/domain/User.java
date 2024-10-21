@@ -1,10 +1,8 @@
 package mx.rmotad.notifications.users.domain;
 
-import mx.rmotad.notifications.common.enums.NotificationCategory;
-import mx.rmotad.notifications.common.enums.NotificationChannel;
+import java.util.List;
 
 public record User(String id, String name, String email, String phone,
-                   NotificationCategory[] subscriptionList,
-                   NotificationChannel[] channels) {
+                   List<Category> subscriptionList, List<Channel> channels) {
 
 }

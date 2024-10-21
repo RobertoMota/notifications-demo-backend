@@ -26,17 +26,9 @@ public class NotificationFactory {
     return Try.of(() -> hashGenerator.calculateHash(message))
         .andThen(hash -> validateIfExists(category, message, repository))
         .map(hash -> createNotificationDomain(category, message, hash))
-        .onFailure(NoSuchAlgorithmException.class, (ex)-> {
+        .onFailure(NoSuchAlgorithmException.class, (ex) -> {
           throw new NotificationError("Could not hash content");
         }).get();
-
-//    validateIfExists(category, message, repository);
-//    ;
-//
-//    String hash = hashGenerator.calculateHash(message);
-//
-//    validateIfExists(category, message, repository);
-//    return createNotificationDomain(category, message, hash);
   }
 
   private static NotificationDomain createNotificationDomain(NotificationCategory category,

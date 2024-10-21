@@ -64,7 +64,7 @@ public class NotificationTestUtils {
   public static NotificationDomain createRandomNotificationDomain() {
     return new NotificationDomain(UlidCreator.getMonotonicUlid().toLowerCase(),
         getRandomValueFromEnum(
-            NotificationCategory.class), MESSAGE, HASH,Instant.now());
+            NotificationCategory.class), MESSAGE, HASH, Instant.now());
   }
 
   private static <T extends Enum<T>> T getRandomValueFromEnum(

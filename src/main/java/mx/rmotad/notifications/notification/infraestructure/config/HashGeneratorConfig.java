@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class HashGeneratorConfig {
 
   @Bean
-  public HashGenerator hashGenerator(){
-    return(string ->
-      new String(MessageDigest.getInstance("MD5").digest(string.getBytes()))
+  public HashGenerator hashGenerator() {
+    return (string ->
+        new String(MessageDigest.getInstance("MD5").digest(string.getBytes()))
     );
   }
 }

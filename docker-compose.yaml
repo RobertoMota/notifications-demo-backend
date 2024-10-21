@@ -9,11 +9,21 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: MyDataAcc3ss#
       MONGO_INITDB_DATABASE: notification-app
     ports:
-      - "27017:27017"  # Exponer el puerto 27017
+      - "27017:27017"
     networks:
       - application-demo
     volumes:
-      - mongo_data:/data/db  # Persistir datos
+      - mongo_data:/data/db
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - application-demo
 
 networks:
   application-demo:
@@ -21,3 +31,4 @@ networks:
 
 volumes:
   mongo_data:
+

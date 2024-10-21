@@ -35,7 +35,8 @@ class NotificationRestControllerTest {
   @SneakyThrows
   @BeforeEach
   void setUp() {
-    request = new ObjectMapper().writeValueAsString(new NotificationRequest(NotificationCategory.SPORTS, "SomeMEssage"));
+    request = new ObjectMapper().writeValueAsString(
+        new NotificationRequest(NotificationCategory.SPORTS, "SomeMEssage"));
   }
 
   @Test

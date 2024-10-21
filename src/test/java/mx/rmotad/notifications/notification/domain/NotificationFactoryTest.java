@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.security.NoSuchAlgorithmException;
 import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.error.NotificationError;
@@ -22,7 +23,7 @@ class NotificationFactoryTest {
   @SneakyThrows
   @ParameterizedTest
   @EnumSource(NotificationCategory.class)
-  void testNewNotification_whenAllParametersAndNotExists_success(NotificationCategory category){
+  void testNewNotification_whenAllParametersAndNotExists_success(NotificationCategory category) {
     when(repository.existsByCategoryChecksum(category, MESSAGE)).thenReturn(false);
     when(hashGenerator.calculateHash(MESSAGE)).thenReturn(MESSAGE);
     var notification = NotificationFactory.create(category, MESSAGE, repository, hashGenerator);
@@ -40,6 +41,18 @@ class NotificationFactoryTest {
     when(repository.existsByCategoryChecksum(NotificationCategory.SPORTS, MESSAGE))
         .thenReturn(true);
     when(hashGenerator.calculateHash(MESSAGE)).thenReturn(MESSAGE);
+    assertThrows(NotificationError.class,
+        () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository,
+            hashGenerator));
+  }
+
+  @SneakyThrows
+  @Test
+  void testNewNotification_whenAllParametersButNoHashing_throwError()
+      throws IllegalAccessException {
+    when(repository.existsByCategoryChecksum(NotificationCategory.SPORTS, MESSAGE))
+        .thenReturn(false);
+    when(hashGenerator.calculateHash(MESSAGE)).thenThrow(NoSuchAlgorithmException.class);
     assertThrows(NotificationError.class,
         () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository,
             hashGenerator));
