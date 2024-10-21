@@ -27,7 +27,7 @@ class UserRestControllerTest {
   void testGetUsersByCategory_whenCategoryExistsAndUsersSubscribed_success() throws Exception {
     when(service.getUsersByCategory(anyString())).thenReturn(
         List.of(new User("", "", "", "", null, null)));
-    mockMvc.perform(get("/users"))
+    mockMvc.perform(get("/users").param("category", "EMAIL"))
         .andExpect(status().isOk());
   }
 
@@ -36,7 +36,7 @@ class UserRestControllerTest {
       throws Exception {
     when(service.getUsersByCategory(anyString())).thenReturn(
         List.of(new User("", "", "", "", null, null)));
-    var res = mockMvc.perform(get("/users"))
+    var res = mockMvc.perform(get("/users").param("category", "EMAIL"))
         .andExpect(status().isOk()).andReturn().getResponse();
     System.out.println(res);
   }

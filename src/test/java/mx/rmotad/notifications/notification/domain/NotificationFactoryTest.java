@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.notification.model;
+package mx.rmotad.notifications.notification.domain;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,21 +6,25 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
-import mx.rmotad.notifications.notification.notification.error.NotificationError;
+import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.error.NotificationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-class NotificationTest {
+class NotificationFactoryTest {
 
+  public static final String MESSAGE = "";
   private final NotificationRepository repository = mock(NotificationRepository.class);
+  private final HashBuilder hashBuilder = mock(HashBuilder.class);
 
   @ParameterizedTest
   @EnumSource(NotificationCategory.class)
   void testNewNotification_whenAllParametersAndNotExists_success(NotificationCategory category)
       throws IllegalAccessException {
-    when(repository.existsByCategoryChecksum(category, "")).thenReturn(false);
-    var notification = Notification.create(category, "", repository);
+    when(repository.existsByCategoryChecksum(category, MESSAGE)).thenReturn(false);
+    when(hashBuilder.calculateHash(MESSAGE)).thenReturn(MESSAGE);
+    var notification = NotificationFactory.create(category, MESSAGE, repository, hashBuilder);
     assertNotNull(notification);
     for (Field field : notification.getClass().getDeclaredFields()) {
       field.setAccessible(true);
@@ -31,10 +35,10 @@ class NotificationTest {
   @Test
   void testNewNotification_whenAllParametersButExists_throwError()
       throws IllegalAccessException {
-    when(repository.existsByCategoryChecksum(NotificationCategory.SPORTS, ""))
+    when(repository.existsByCategoryChecksum(NotificationCategory.SPORTS, MESSAGE))
         .thenReturn(true);
-
+    when(hashBuilder.calculateHash(MESSAGE)).thenReturn(MESSAGE);
     assertThrows(NotificationError.class,
-        () -> Notification.create(NotificationCategory.SPORTS, "", repository));
+        () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository, hashBuilder));
   }
 }

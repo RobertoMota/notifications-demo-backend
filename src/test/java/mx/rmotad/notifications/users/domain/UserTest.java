@@ -7,13 +7,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
+import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.common.enums.NotificationChannel;
 import org.junit.jupiter.api.Test;
+
 @Slf4j
 class UserTest {
 
   @Test
   void createUser_whenAllParameters_success() throws IllegalAccessException {
-    var user = new User("userId", "user", "", "", new String[]{}, new String[]{});
+    var user = new User("userId", "user", "", "", new NotificationCategory[]{},
+        new NotificationChannel[]{});
     assertNotNull(user);
     for (Field field : user.getClass().getDeclaredFields()) {
       field.setAccessible(true);

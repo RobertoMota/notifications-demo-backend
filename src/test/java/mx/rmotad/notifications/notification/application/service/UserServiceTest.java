@@ -1,6 +1,7 @@
-package mx.rmotad.notifications.notification.notification.application.service;
+package mx.rmotad.notifications.notification.application.service;
 
-import static mx.rmotad.notifications.notification.notification.model.NotificationCategory.SPORTS;
+import static mx.rmotad.notifications.common.enums.NotificationCategory.SPORTS;
+import static mx.rmotad.notifications.notification.NotificationTestUtils.getRandomUserArray;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -9,8 +10,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import mx.rmotad.notifications.notification.notification.application.dto.UserDTO;
-import mx.rmotad.notifications.notification.notification.model.NotificationCategory;
+import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.application.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,8 @@ class UserServiceTest {
 
   @Test
   void testGetUsersByCategory_whenUsersExists_success() {
-
     when(restTemplate.getForEntity(anyString(), eq(UserDTO[].class)))
-        .thenReturn(ResponseEntity.ok(new UserDTO[]{mock(UserDTO.class)}));
+        .thenReturn(ResponseEntity.ok().body(getRandomUserArray()));
 
     var users = service.getUsersByCategory(NOTIFICATION_CATEGORY);
     assertNotNull(users);
