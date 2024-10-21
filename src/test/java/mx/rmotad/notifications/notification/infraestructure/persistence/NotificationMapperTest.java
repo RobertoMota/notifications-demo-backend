@@ -12,7 +12,7 @@ class NotificationMapperTest {
   private final NotificationMapper mapper = NotificationMapper.INSTANCE;
 
   @Test
-  void domainToDocument() {
+  void domainToDocument_whenDomain_returnDocument() {
     var domain = createRandomNotificationDomain();
     var document = mapper.domainToDocument(domain);
 
@@ -25,7 +25,7 @@ class NotificationMapperTest {
   }
 
   @Test
-  void domainToDocument_null_returnNull() {
+  void domainToDocument_whenDomainNull_returnNull() {
     assertNull(mapper.domainToDocument(null));
   }
 }
