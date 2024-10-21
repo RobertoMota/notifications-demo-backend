@@ -1,0 +1,8 @@
+spring.application.name: notification-demo
+
+spring.data.mongodb:
+  username: webapp
+  password: MyDataAcc3ss#
+  uri: "mongodb://localhost:27017"
+  database: notification-app
+
