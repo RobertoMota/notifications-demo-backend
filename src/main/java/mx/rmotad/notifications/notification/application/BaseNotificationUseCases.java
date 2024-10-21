@@ -10,7 +10,7 @@ import mx.rmotad.notifications.common.enums.NotificationChannel;
 import mx.rmotad.notifications.notification.application.dto.UserDTO;
 import mx.rmotad.notifications.notification.application.service.INotificationProducerFactory;
 import mx.rmotad.notifications.notification.application.service.IUserService;
-import mx.rmotad.notifications.notification.domain.HashBuilder;
+import mx.rmotad.notifications.notification.domain.HashGenerator;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import mx.rmotad.notifications.notification.domain.NotificationFactory;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class BaseNotificationUseCases implements NotificationUseCases {
 
   private final NotificationRepository repository;
-  private final HashBuilder hashBuilder;
+  private final HashGenerator hashGenerator;
   private final IUserService userService;
   private final INotificationProducerFactory producerFactory;
 
@@ -29,7 +29,7 @@ public class BaseNotificationUseCases implements NotificationUseCases {
   public NotificationDomain newNotificationUseCase(NotificationCategory category, String message) {
 
     final NotificationDomain notification =
-        NotificationFactory.create(category, message, repository, hashBuilder);
+        NotificationFactory.create(category, message, repository, hashGenerator);
 
     repository.save(notification);
 

@@ -24,7 +24,7 @@ import mx.rmotad.notifications.common.enums.NotificationChannel;
 import mx.rmotad.notifications.notification.application.service.INotificationProducerFactory;
 import mx.rmotad.notifications.notification.application.service.IUserService;
 import mx.rmotad.notifications.notification.application.service.NotificationProducer;
-import mx.rmotad.notifications.notification.domain.HashBuilder;
+import mx.rmotad.notifications.notification.domain.HashGenerator;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
 import mx.rmotad.notifications.notification.domain.error.NotificationError;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
@@ -42,13 +42,13 @@ class BaseNotificationDomainUseCasesTest {
   private BaseNotificationUseCases service;
 
   private NotificationProducer producer;
-  private HashBuilder hasBuilder;
+  private HashGenerator hasBuilder;
 
   @BeforeEach
   void setUp() {
     producer = mock(NotificationProducer.class);
     repository = mock(NotificationRepository.class);
-    hasBuilder = mock(HashBuilder.class);
+    hasBuilder = mock(HashGenerator.class);
     userService = mock(IUserService.class);
     INotificationProducerFactory = mock(INotificationProducerFactory.class);
     service = new BaseNotificationUseCases(

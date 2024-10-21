@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.notification.application.NotificationUseCases;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
@@ -29,11 +30,12 @@ class NotificationRestControllerTest {
 
   @MockBean
   private NotificationUseCases notificationUseCases;
-  private NotificationRequest request;
+  private String request;
 
+  @SneakyThrows
   @BeforeEach
   void setUp() {
-    request = new NotificationRequest(NotificationCategory.SPORTS, "SomeMEssage");
+    request = new ObjectMapper().writeValueAsString(new NotificationRequest(NotificationCategory.SPORTS, "SomeMEssage"));
   }
 
   @Test
@@ -47,7 +49,7 @@ class NotificationRestControllerTest {
     var responseBytes = mockMvc.perform(
             post("/notifications")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"category\":\"SPORTS\", \"message\":\"somemsse\"}"))
+                .content(request))
         .andExpect(status().isCreated())
         .andReturn().getResponse().getContentAsByteArray();
     var response = new ObjectMapper().readValue(responseBytes, NotificationResponse.class);

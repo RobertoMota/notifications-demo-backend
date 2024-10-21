@@ -1,8 +1,27 @@
 spring.application.name: notification-demo
 
-spring.data.mongodb:
-  username: webapp
-  password: MyDataAcc3ss#
-  uri: "mongodb://localhost:27017"
-  database: notification-app
+#spring.data.mongodb:
+#  host: localhost
+#  port: 27017
+#  username: webapp
+#  password: "MyDataAcc3ss#"
+#  database: "notification-app"
 
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://webapp:MyDataAcc3ss#@localhost:27017/admin"
+      database: "notification-app"
+
+notifications-app:
+  users.default-users:
+    SPORTS:
+      - id: someId
+        name: username
+        email: mail@mail.com
+        phone: 1234567890
+        subscriptionList:
+          - SPORTS
+          - MOVIES
+        channels:
+          - EMAIL

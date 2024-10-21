@@ -6,6 +6,6 @@ public interface Notification {
 
   NotificationCategory category();
 
-  String message();
+  String content();
 
 }

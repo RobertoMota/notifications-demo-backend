@@ -1,10 +1,12 @@
 package mx.rmotad.notifications.users.application;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
 
+import mx.rmotad.notifications.users.domain.Category;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 class UserApplicationServiceTest {
 
@@ -12,13 +14,12 @@ class UserApplicationServiceTest {
 
   @BeforeAll
   static void setUp() {
-    service = new UserApplicationService();
-    service.setUp();
+    service = new UserApplicationService(mock(UsersConfig.class));
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"SPORTS", "MOVIES", "FINANCE"})
-  void getUsersByCategory(String category) {
+  @EnumSource(Category.class)
+  void getUsersByCategory(Category category) {
     var users = service.getUsersByCategory(category);
     assertFalse(users.isEmpty());
   }

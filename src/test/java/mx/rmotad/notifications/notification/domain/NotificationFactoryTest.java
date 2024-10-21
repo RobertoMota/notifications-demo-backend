@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.error.NotificationError;
 import org.junit.jupiter.api.Test;
@@ -16,15 +17,15 @@ class NotificationFactoryTest {
 
   public static final String MESSAGE = "";
   private final NotificationRepository repository = mock(NotificationRepository.class);
-  private final HashBuilder hashBuilder = mock(HashBuilder.class);
+  private final HashGenerator hashGenerator = mock(HashGenerator.class);
 
+  @SneakyThrows
   @ParameterizedTest
   @EnumSource(NotificationCategory.class)
-  void testNewNotification_whenAllParametersAndNotExists_success(NotificationCategory category)
-      throws IllegalAccessException {
+  void testNewNotification_whenAllParametersAndNotExists_success(NotificationCategory category){
     when(repository.existsByCategoryChecksum(category, MESSAGE)).thenReturn(false);
-    when(hashBuilder.calculateHash(MESSAGE)).thenReturn(MESSAGE);
-    var notification = NotificationFactory.create(category, MESSAGE, repository, hashBuilder);
+    when(hashGenerator.calculateHash(MESSAGE)).thenReturn(MESSAGE);
+    var notification = NotificationFactory.create(category, MESSAGE, repository, hashGenerator);
     assertNotNull(notification);
     for (Field field : notification.getClass().getDeclaredFields()) {
       field.setAccessible(true);
@@ -32,13 +33,15 @@ class NotificationFactoryTest {
     }
   }
 
+  @SneakyThrows
   @Test
   void testNewNotification_whenAllParametersButExists_throwError()
       throws IllegalAccessException {
     when(repository.existsByCategoryChecksum(NotificationCategory.SPORTS, MESSAGE))
         .thenReturn(true);
-    when(hashBuilder.calculateHash(MESSAGE)).thenReturn(MESSAGE);
+    when(hashGenerator.calculateHash(MESSAGE)).thenReturn(MESSAGE);
     assertThrows(NotificationError.class,
-        () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository, hashBuilder));
+        () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository,
+            hashGenerator));
   }
 }

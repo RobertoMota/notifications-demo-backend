@@ -1,5 +1,6 @@
 package mx.rmotad.notifications.users.adapters.input;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -7,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 import mx.rmotad.notifications.users.application.IUserApplicationService;
+import mx.rmotad.notifications.users.domain.Category;
 import mx.rmotad.notifications.users.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ class UserRestControllerTest {
 
   @Test
   void testGetUsersByCategory_whenCategoryExistsAndUsersSubscribed_success() throws Exception {
-    when(service.getUsersByCategory(anyString())).thenReturn(
+    when(service.getUsersByCategory(any(Category.class))).thenReturn(
         List.of(new User("", "", "", "", null, null)));
     mockMvc.perform(get("/users").param("category", "EMAIL"))
         .andExpect(status().isOk());
@@ -34,7 +36,7 @@ class UserRestControllerTest {
   @Test
   void testGetUsersByCategory_whenCategoryExistsAndUsersIsNotSubscribed_emptyList()
       throws Exception {
-    when(service.getUsersByCategory(anyString())).thenReturn(
+    when(service.getUsersByCategory(any(Category.class))).thenReturn(
         List.of(new User("", "", "", "", null, null)));
     var res = mockMvc.perform(get("/users").param("category", "EMAIL"))
         .andExpect(status().isOk()).andReturn().getResponse();

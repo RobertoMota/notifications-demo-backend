@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "notifications")
 public record NotificationDocument(@Id String id, NotificationCategory category,
-                                   String message, String hash, Instant createdAt)
+                                   String content, String hash, Instant createdAt)
     implements Notification, IdentifiableResource, HashContent, CreationTimestamped {
 
 }

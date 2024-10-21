@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import lombok.RequiredArgsConstructor;
 import mx.rmotad.notifications.notification.application.NotificationUseCases;
+import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +22,10 @@ public class NotificationRestController {
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(CREATED)
   NotificationResponse createNotification(@RequestBody NotificationRequest notificationRequest) {
-    var r = notificationUseCases.newNotificationUseCase(
+    NotificationDomain createdNotification = notificationUseCases.newNotificationUseCase(
         notificationRequest.category(),
-        notificationRequest.message());
+        notificationRequest.content());
 
-    return new NotificationResponse(r.id());
+    return new NotificationResponse(createdNotification.id());
   }
 }
