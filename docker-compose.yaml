@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: webapp
+      MONGO_INITDB_ROOT_PASSWORD: MyDataAcc3ss#
+      MONGO_INITDB_DATABASE: notification-app
+    ports:
+      - "27017:27017"  # Exponer el puerto 27017
+    networks:
+      - application-demo
+    volumes:
+      - mongo_data:/data/db  # Persistir datos
+
+networks:
+  application-demo:
+    driver: bridge
+
+volumes:
+  mongo_data:
