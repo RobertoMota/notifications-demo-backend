@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.common.enums.NotificationChannel;
+import mx.rmotad.notifications.config.NoSecurityConfig;
 import mx.rmotad.notifications.notification.application.dto.UserDTO;
 import mx.rmotad.notifications.users.UserTestUtil;
 import mx.rmotad.notifications.users.application.IUserApplicationService;
@@ -19,9 +20,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(UserRestController.class)
+@Import(NoSecurityConfig.class)
 class UserRestControllerTest {
 
   @Autowired

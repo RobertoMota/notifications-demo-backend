@@ -1,6 +1,8 @@
 package mx.rmotad.notifications.notification.application;
 
 import io.vavr.control.Try;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.notification.application.service.IUserService;
@@ -10,8 +12,10 @@ import mx.rmotad.notifications.notification.domain.NotificationFactory;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class BaseNotificationUseCases implements NotificationUseCases {
 
@@ -21,7 +25,8 @@ public class BaseNotificationUseCases implements NotificationUseCases {
   private final NotificationProducer notificationProducer;
 
   @Override
-  public NotificationDomain newNotificationUseCase(NotificationCategory category, String message) {
+  public NotificationDomain newNotificationUseCase(@NotNull NotificationCategory category,
+      @NotNull @Size(min = 1, max = 130) String message) {
 
     return Try.of(
             () -> NotificationFactory.create(category, message, notificationRepository, hashGenerator))

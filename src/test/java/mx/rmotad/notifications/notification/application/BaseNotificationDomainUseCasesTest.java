@@ -12,7 +12,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import java.time.Instant;
+import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
 import mx.rmotad.notifications.notification.application.service.IUserService;
 import mx.rmotad.notifications.notification.application.service.NotificationProducer;
@@ -22,9 +25,12 @@ import mx.rmotad.notifications.notification.domain.error.NotificationError;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class BaseNotificationDomainUseCasesTest {
 
   public static final String MESSAGE = "some category related message";
@@ -36,6 +42,7 @@ class BaseNotificationDomainUseCasesTest {
 
   private NotificationProducer producer;
   private HashGenerator hashBuilder;
+  private Validator validator;
 
   @BeforeEach
   void setUp() {
@@ -45,6 +52,8 @@ class BaseNotificationDomainUseCasesTest {
     notificationProducer = mock(NotificationProducer.class);
     service = new BaseNotificationUseCases(
         repository, hashBuilder, userService, notificationProducer);
+
+    validator = Validation.buildDefaultValidatorFactory().getValidator();
   }
 
   @ParameterizedTest
@@ -67,10 +76,12 @@ class BaseNotificationDomainUseCasesTest {
   }
 
 
+  @SneakyThrows
   @Test
   void testNewNotification_UseCase_whenAlreadyExists_error() {
     when(repository.existsByCategoryChecksum(any(NotificationCategory.class),
         anyString())).thenReturn(true);
+    when(hashBuilder.calculateHash(anyString())).thenReturn("hash");
 
     assertThrows(NotificationError.class,
         () -> service.newNotificationUseCase(SPORTS, MESSAGE));

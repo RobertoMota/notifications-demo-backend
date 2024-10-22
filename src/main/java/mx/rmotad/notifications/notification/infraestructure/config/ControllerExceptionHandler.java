@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.adapters.input;
+package mx.rmotad.notifications.notification.infraestructure.config;
 
 import io.vavr.control.Try;
 import java.util.Locale;

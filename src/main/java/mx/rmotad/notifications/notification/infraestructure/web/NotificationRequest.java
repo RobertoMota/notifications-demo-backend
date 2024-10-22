@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.adapters.input;
+package mx.rmotad.notifications.notification.infraestructure.web;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

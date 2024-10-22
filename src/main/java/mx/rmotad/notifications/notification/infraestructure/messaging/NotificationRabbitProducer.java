@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.infraestructure.producer;
+package mx.rmotad.notifications.notification.infraestructure.messaging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

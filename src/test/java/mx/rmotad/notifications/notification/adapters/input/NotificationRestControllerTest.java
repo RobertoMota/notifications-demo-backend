@@ -12,17 +12,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.config.NoSecurityConfig;
 import mx.rmotad.notifications.notification.application.NotificationUseCases;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
+import mx.rmotad.notifications.notification.infraestructure.web.NotificationRequest;
+import mx.rmotad.notifications.notification.infraestructure.web.NotificationResponse;
+import mx.rmotad.notifications.notification.infraestructure.web.NotificationRestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(NotificationRestController.class)
+@Import(NoSecurityConfig.class)
 class NotificationRestControllerTest {
 
   @Autowired

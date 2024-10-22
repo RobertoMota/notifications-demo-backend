@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.infraestructure.producer;
+package mx.rmotad.notifications.notification.infraestructure.messaging;
 
 import static mx.rmotad.notifications.notification.NotificationTestUtils.createRandomNotificationDomain;
 import static org.mockito.ArgumentMatchers.any;

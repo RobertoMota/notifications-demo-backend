@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.adapters.input;
+package mx.rmotad.notifications.notification.infraestructure.web;
 
 import mx.rmotad.notifications.notification.domain.model.IdentifiableResource;
 
