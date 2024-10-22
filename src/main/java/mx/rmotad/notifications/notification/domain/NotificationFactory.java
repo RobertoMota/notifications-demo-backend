@@ -1,5 +1,7 @@
 package mx.rmotad.notifications.notification.domain;
 
+import static mx.rmotad.notifications.notification.domain.error.ErrorConstants.NOTIFICATION_ALREADY_EXISTS;
+
 import com.github.f4b6a3.ulid.UlidCreator;
 import io.vavr.control.Try;
 import java.security.NoSuchAlgorithmException;
@@ -11,6 +13,8 @@ import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 
 @UtilityClass
 public class NotificationFactory {
+
+
 
   /**
    * Creates a new Notification Domain object
@@ -24,7 +28,7 @@ public class NotificationFactory {
       NotificationRepository repository, HashGenerator hashGenerator) {
 
     return Try.of(() -> hashGenerator.calculateHash(message))
-        .andThen(hash -> validateIfExists(category, message, repository))
+        .andThen(hash -> validateIfExists(category, hash, repository))
         .map(hash -> createNotificationDomain(category, message, hash))
         .onFailure(NoSuchAlgorithmException.class, (ex) -> {
           throw new NotificationError("Could not hash content");
@@ -40,7 +44,7 @@ public class NotificationFactory {
   private static void validateIfExists(NotificationCategory category, String message,
       NotificationRepository repository) {
     if (repository.existsByCategoryChecksum(category, message)) {
-      throw new NotificationError("Notification already exists");
+      throw new NotificationError(NOTIFICATION_ALREADY_EXISTS);
     }
   }
 }

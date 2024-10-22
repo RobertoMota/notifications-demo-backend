@@ -11,7 +11,7 @@ public class HashGeneratorConfig {
   @Bean
   public HashGenerator hashGenerator() {
     return (string ->
-        new String(MessageDigest.getInstance("MD5").digest(string.getBytes()))
+        new String(MessageDigest.getInstance("SHA256").digest(string.getBytes()))
     );
   }
 }

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import lombok.SneakyThrows;
 import mx.rmotad.notifications.common.enums.NotificationCategory;
@@ -56,5 +57,13 @@ class NotificationFactoryTest {
     assertThrows(NotificationError.class,
         () -> NotificationFactory.create(NotificationCategory.SPORTS, MESSAGE, repository,
             hashGenerator));
+  }
+
+  @Test
+  void t() throws NoSuchAlgorithmException {
+    var string = "hello";
+    System.out.println(new String(MessageDigest.getInstance("SHA256").digest(string.getBytes())));
+    System.out.println(string.hashCode());
+    System.out.println(string.hashCode());
   }
 }

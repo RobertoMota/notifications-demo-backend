@@ -5,7 +5,8 @@ package mx.rmotad.notifications.notification.domain.error;
  */
 public class NotificationError extends RuntimeException {
 
-  public NotificationError(String message) {
-    super(message);
+  private String errorCode;
+  public NotificationError(String errorCode) {
+    super(errorCode);
   }
 }

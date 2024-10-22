@@ -2,6 +2,7 @@ package mx.rmotad.notifications.notification.adapters.input;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mx.rmotad.notifications.notification.application.NotificationUseCases;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
@@ -21,7 +22,7 @@ public class NotificationRestController {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(CREATED)
-  NotificationResponse createNotification(@RequestBody NotificationRequest notificationRequest) {
+  NotificationResponse createNotification(@Valid @RequestBody NotificationRequest notificationRequest) {
     NotificationDomain createdNotification = notificationUseCases.newNotificationUseCase(
         notificationRequest.category(),
         notificationRequest.content());
