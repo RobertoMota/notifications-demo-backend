@@ -1,8 +1,9 @@
-package mx.rmotad.notifications.users.adapters.input;
+package mx.rmotad.notifications.users.infrastructure.web;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mx.rmotad.notifications.users.application.IUserApplicationService;
+import mx.rmotad.notifications.users.application.UserApplicationService;
+import mx.rmotad.notifications.users.application.UserService;
 import mx.rmotad.notifications.users.domain.Category;
 import mx.rmotad.notifications.users.domain.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserRestController {
 
-  private final IUserApplicationService applicationService;
+  private final UserService userService;
 
   @GetMapping
   public List<User> getUsers(@RequestParam Category category) {
-    return applicationService.getUsersByCategory(category);
+    return userService.getUsersByCategory(category);
   }
 }

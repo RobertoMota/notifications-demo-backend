@@ -7,7 +7,7 @@ import io.vavr.control.Try;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import lombok.experimental.UtilityClass;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.error.NotificationError;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 

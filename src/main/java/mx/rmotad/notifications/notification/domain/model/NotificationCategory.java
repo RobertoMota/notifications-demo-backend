@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.common.enums;
+package mx.rmotad.notifications.notification.domain.model;
 
 /**
  * The available notification categories

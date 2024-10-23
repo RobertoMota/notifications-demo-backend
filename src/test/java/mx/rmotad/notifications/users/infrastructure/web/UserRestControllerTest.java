@@ -1,19 +1,14 @@
-package mx.rmotad.notifications.users.adapters.input;
+package mx.rmotad.notifications.users.infrastructure.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import java.util.Collections;
-import java.util.List;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
-import mx.rmotad.notifications.common.enums.NotificationChannel;
 import mx.rmotad.notifications.config.NoSecurityConfig;
-import mx.rmotad.notifications.notification.application.dto.UserDTO;
 import mx.rmotad.notifications.users.UserTestUtil;
-import mx.rmotad.notifications.users.application.IUserApplicationService;
+import mx.rmotad.notifications.users.application.UserService;
 import mx.rmotad.notifications.users.domain.Category;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
@@ -31,7 +26,7 @@ class UserRestControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private IUserApplicationService service;
+  private UserService service;
 
   private static final Faker faker = new Faker();
 
@@ -57,18 +52,4 @@ class UserRestControllerTest {
         .andExpect(status().isOk()).andReturn().getResponse();
     System.out.println(res);
   }
-
-  public static UserDTO getRandomUser(List<NotificationCategory> categories,
-      List<NotificationChannel> channels) {
-
-    return new UserDTO(
-        UlidCreator.getMonotonicUlid().toLowerCase(),
-        faker.name().name(),
-        faker.internet().emailAddress(),
-        faker.phoneNumber().cellPhone(),
-        categories,
-        channels
-    );
-  }
-
 }

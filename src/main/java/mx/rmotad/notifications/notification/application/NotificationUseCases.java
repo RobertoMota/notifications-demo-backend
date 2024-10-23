@@ -1,6 +1,6 @@
 package mx.rmotad.notifications.notification.application;
 
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 
 /**

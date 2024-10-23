@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notification.application.service;
+package mx.rmotad.notifications.notification.application;
 
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 

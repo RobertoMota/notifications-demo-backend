@@ -11,10 +11,11 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
-import mx.rmotad.notifications.common.enums.NotificationChannel;
-import mx.rmotad.notifications.notification.application.dto.UserDTO;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
+import mx.rmotad.notifications.notifier.application.model.User;
+import mx.rmotad.notifications.notifier.domain.model.NotifierCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
+import mx.rmotad.notifications.notifier.domain.model.NotifierChannel;
 import net.datafaker.Faker;
 
 @UtilityClass
@@ -24,15 +25,15 @@ public class NotificationTestUtils {
   public static final String MESSAGE = "message";
   public static final String HASH = "hash";
 
-  public static UserDTO getRandomUser() {
+  public static User getRandomUser() {
     return getRandomUser(
-        getEnumRandomSublist(NotificationCategory.class),
-        getEnumRandomSublist(NotificationChannel.class));
+        getEnumRandomSublist(NotifierCategory.class),
+        getEnumRandomSublist(NotifierChannel.class));
   }
 
-  public static UserDTO getRandomUser(List<NotificationCategory> categories,
-      List<NotificationChannel> channels) {
-    return new UserDTO(
+  public static User getRandomUser(List<NotifierCategory> categories,
+      List<NotifierChannel> channels) {
+    return new User(
         UlidCreator.getMonotonicUlid().toLowerCase(),
         faker.name().name(),
         faker.internet().emailAddress(),
@@ -42,23 +43,23 @@ public class NotificationTestUtils {
     );
   }
 
-  public static List<UserDTO> getRandomUserList() {
-    List<List<Set<?>>> combinations = generateCombinations(Set.of(NotificationCategory.values()),
-        Set.of(NotificationChannel.values()));
+  public static List<User> getRandomUserList() {
+    List<List<Set<?>>> combinations = generateCombinations(Set.of(NotifierCategory.values()),
+        Set.of(NotifierChannel.values()));
 
     return combinations.stream()
         .map(combination ->
             getRandomUser(
-                combination.get(0).stream().map(cat -> (NotificationCategory) cat)
+                combination.get(0).stream().map(cat -> (NotifierCategory) cat)
                     .collect(Collectors.toList()),
-                combination.get(1).stream().map(cat -> (NotificationChannel) cat)
+                combination.get(1).stream().map(cat -> (NotifierChannel) cat)
                     .collect(Collectors.toList())
             ))
         .toList();
   }
 
-  public static UserDTO[] getRandomUserArray() {
-    return getRandomUserList().toArray(UserDTO[]::new);
+  public static User[] getRandomUserArray() {
+    return getRandomUserList().toArray(User[]::new);
   }
 
   public static NotificationDomain createRandomNotificationDomain() {
@@ -78,7 +79,6 @@ public class NotificationTestUtils {
     var enumValues = Arrays.asList(enumeration.getEnumConstants());
     Collections.shuffle(enumValues);
     int items = ThreadLocalRandom.current().nextInt(0, enumValues.size());
-    ;
     return enumValues.subList(0, items);
   }
 

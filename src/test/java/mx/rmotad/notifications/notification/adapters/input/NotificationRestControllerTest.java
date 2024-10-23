@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.config.NoSecurityConfig;
 import mx.rmotad.notifications.notification.application.NotificationUseCases;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;

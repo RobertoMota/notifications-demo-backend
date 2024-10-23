@@ -1,7 +1,7 @@
 package mx.rmotad.notifications.notification.infraestructure.persistence;
 
 import lombok.RequiredArgsConstructor;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import org.springframework.stereotype.Component;

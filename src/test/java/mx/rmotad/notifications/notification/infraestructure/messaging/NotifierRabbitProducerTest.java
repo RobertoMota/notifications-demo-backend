@@ -7,13 +7,13 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mx.rmotad.notifications.notification.application.service.NotificationProducer;
+import mx.rmotad.notifications.notification.application.NotificationProducer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
-class NotificationRabbitProducerTest {
+class NotifierRabbitProducerTest {
 
 
   private NotificationProducer producer;
@@ -32,12 +32,12 @@ class NotificationRabbitProducerTest {
   }
 
   @Test
-  void notifyCreated() {
+  void notifyNotified() {
     producer.notifyCreated(createRandomNotificationDomain());
   }
 
   @Test
-  void notifyCreated_error() throws JsonProcessingException {
+  void notifyNotified_error() throws JsonProcessingException {
     when(mapper.writeValueAsString(any())).thenThrow(JsonProcessingException.class);
     producer.notifyCreated(createRandomNotificationDomain());
   }

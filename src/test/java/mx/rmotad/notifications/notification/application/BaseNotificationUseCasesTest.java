@@ -1,6 +1,6 @@
 package mx.rmotad.notifications.notification.application;
 
-import static mx.rmotad.notifications.common.enums.NotificationCategory.SPORTS;
+import static mx.rmotad.notifications.notification.domain.model.NotificationCategory.SPORTS;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,9 +16,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import java.time.Instant;
 import lombok.SneakyThrows;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
-import mx.rmotad.notifications.notification.application.service.IUserService;
-import mx.rmotad.notifications.notification.application.service.NotificationProducer;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.HashGenerator;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
 import mx.rmotad.notifications.notification.domain.error.NotificationError;
@@ -31,12 +29,11 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BaseNotificationDomainUseCasesTest {
+class BaseNotificationUseCasesTest {
 
   public static final String MESSAGE = "some category related message";
 
   private NotificationRepository repository;
-  private IUserService userService;
   private NotificationProducer notificationProducer;
   private BaseNotificationUseCases service;
 
@@ -48,10 +45,9 @@ class BaseNotificationDomainUseCasesTest {
   void setUp() {
     repository = mock(NotificationRepository.class);
     hashBuilder = mock(HashGenerator.class);
-    userService = mock(IUserService.class);
     notificationProducer = mock(NotificationProducer.class);
     service = new BaseNotificationUseCases(
-        repository, hashBuilder, userService, notificationProducer);
+        repository, hashBuilder, notificationProducer);
 
     validator = Validation.buildDefaultValidatorFactory().getValidator();
   }
@@ -87,7 +83,6 @@ class BaseNotificationDomainUseCasesTest {
         () -> service.newNotificationUseCase(SPORTS, MESSAGE));
 
     verify(repository, never()).save(any());
-    verify(userService, never()).getUsersByCategory(any());
     verify(notificationProducer, never())
         .notifyCreated(any(NotificationDomain.class));
   }

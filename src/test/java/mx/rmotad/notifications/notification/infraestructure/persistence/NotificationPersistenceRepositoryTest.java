@@ -1,6 +1,6 @@
 package mx.rmotad.notifications.notification.infraestructure.persistence;
 
-import static mx.rmotad.notifications.common.enums.NotificationCategory.SPORTS;
+import static mx.rmotad.notifications.notification.domain.model.NotificationCategory.SPORTS;
 import static mx.rmotad.notifications.notification.NotificationTestUtils.createRandomNotificationDomain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

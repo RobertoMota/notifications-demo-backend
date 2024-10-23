@@ -1,7 +1,7 @@
 package mx.rmotad.notifications.notification.infraestructure.persistence;
 
 import java.time.Instant;
-import mx.rmotad.notifications.common.enums.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.CreationTimestamped;
 import mx.rmotad.notifications.notification.domain.model.HashContent;
 import mx.rmotad.notifications.notification.domain.model.IdentifiableResource;
