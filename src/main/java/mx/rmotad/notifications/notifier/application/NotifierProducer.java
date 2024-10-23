@@ -1,6 +1,7 @@
 package mx.rmotad.notifications.notifier.application;
 
-import mx.rmotad.notifications.notification.domain.model.Notification;
+
+import mx.rmotad.notifications.notifier.application.model.Notification;
 
 /**
  * This is intended to hold the Notification events

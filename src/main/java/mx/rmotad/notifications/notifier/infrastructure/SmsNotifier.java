@@ -1,4 +1,4 @@
-package mx.rmotad.notifications.notifier.infrastructure.messaging;
+package mx.rmotad.notifications.notifier.infrastructure;
 
 import java.util.List;
 import mx.rmotad.notifications.notifier.domain.Notifier;

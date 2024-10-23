@@ -4,14 +4,14 @@ import io.vavr.control.Try;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
-import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
+import mx.rmotad.notifications.common.UseCase;
 import mx.rmotad.notifications.notification.domain.HashGenerator;
 import mx.rmotad.notifications.notification.domain.NotificationFactory;
 import mx.rmotad.notifications.notification.domain.NotificationRepository;
+import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
-import org.springframework.stereotype.Service;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
 public class BaseNotificationUseCases implements NotificationUseCases {
 

@@ -56,7 +56,8 @@ public class ControllerExceptionHandler {
     return buildErrorResponse(bodyBuilder, code, getMessage(code));
   }
 
-  private ResponseEntity<ErrorResponse> buildErrorResponse(BodyBuilder bodyBuilder, String code, String detail) {
+  private ResponseEntity<ErrorResponse> buildErrorResponse(BodyBuilder bodyBuilder, String code,
+      String detail) {
     return bodyBuilder.body(new ErrorResponse(code, detail));
   }
 

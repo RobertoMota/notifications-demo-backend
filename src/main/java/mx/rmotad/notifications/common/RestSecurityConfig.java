@@ -45,7 +45,8 @@ public class RestSecurityConfig {
     configuration.setMaxAge(3600L); // Tiempo de cacheo en segundos
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration); // Aplicar configuración a todas las rutas
+    source.registerCorsConfiguration("/**",
+        configuration); // Aplicar configuración a todas las rutas
     return source;
   }
 }

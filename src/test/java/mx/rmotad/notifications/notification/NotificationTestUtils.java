@@ -12,9 +12,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
+import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import mx.rmotad.notifications.notifier.application.model.User;
 import mx.rmotad.notifications.notifier.domain.model.NotifierCategory;
-import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import mx.rmotad.notifications.notifier.domain.model.NotifierChannel;
 import net.datafaker.Faker;
 

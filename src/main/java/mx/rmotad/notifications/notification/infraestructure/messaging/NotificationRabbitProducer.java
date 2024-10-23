@@ -16,15 +16,16 @@ public class NotificationRabbitProducer implements NotificationProducer {
 
   public static final String ROUTING_KEY = "";
   public static final String ERROR_SENDING_MESSAGE_EX = "Error sending message ex:[{}]";
-  private final RabbitTemplate rabbitTemplate;
-  private final FanoutExchange fanoutExchange;
+  private final RabbitTemplate notificationRabbitTemplate;
+  private final FanoutExchange notificationFanoutExchange;
   private final ObjectMapper mapper;
 
   @Override
   public void notifyCreated(NotificationDomain notification) {
     try {
       String payload = mapper.writeValueAsString(notification);
-      rabbitTemplate.convertAndSend(fanoutExchange.getName(), ROUTING_KEY, payload);
+      notificationRabbitTemplate.convertAndSend(notificationFanoutExchange.getName(), ROUTING_KEY,
+          payload);
     } catch (Exception ex) {
       log.error(ERROR_SENDING_MESSAGE_EX, ex.getMessage());
     }

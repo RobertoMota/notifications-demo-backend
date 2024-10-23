@@ -12,5 +12,6 @@ import org.springframework.validation.annotation.Validated;
 @Component
 @Validated
 public @interface UseCase {
+
   String value() default "";
 }

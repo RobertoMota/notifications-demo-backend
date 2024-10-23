@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import mx.rmotad.notifications.common.UseCase;
 import mx.rmotad.notifications.users.domain.Category;
 import mx.rmotad.notifications.users.domain.User;
-import org.springframework.stereotype.Service;
 
 /**
  * This class is intended to hold the application use cases for User domain.

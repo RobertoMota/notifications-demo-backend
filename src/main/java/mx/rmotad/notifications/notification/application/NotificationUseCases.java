@@ -1,5 +1,7 @@
 package mx.rmotad.notifications.notification.application;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 
@@ -16,5 +18,6 @@ public interface NotificationUseCases {
    * @param message  the text message of the notification
    * @return the created notification
    */
-  NotificationDomain newNotificationUseCase(NotificationCategory category, String message);
+  NotificationDomain newNotificationUseCase(@NotNull NotificationCategory category,
+      @NotNull @Size(min = 1, max = 130) String message);
 }

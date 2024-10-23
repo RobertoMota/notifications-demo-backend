@@ -1,6 +1,7 @@
 package mx.rmotad.notifications.notifier.infrastructure.messaging;
 
-import static mx.rmotad.notifications.notification.infraestructure.config.RabbitConfig.NOTIFICATION_CREATED_QUEUE;
+
+import static mx.rmotad.notifications.notifier.infrastructure.config.NotifierRabbitConfig.NOTIFIER_DELIVERED_CREATED_QUEUE;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ public class NotificationRabbitListener {
   private final NotifierUseCases notifierUseCases;
   private final ObjectMapper mapper;
 
-  @RabbitListener(queues = {NOTIFICATION_CREATED_QUEUE})
+  @RabbitListener(queues = {NOTIFIER_DELIVERED_CREATED_QUEUE})
   public void receiveMessage(String notification) {
     log.debug("Received : [{}]", notification);
     try {

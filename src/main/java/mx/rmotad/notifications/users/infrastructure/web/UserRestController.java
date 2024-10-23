@@ -2,7 +2,6 @@ package mx.rmotad.notifications.users.infrastructure.web;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mx.rmotad.notifications.users.application.UserApplicationService;
 import mx.rmotad.notifications.users.application.UserService;
 import mx.rmotad.notifications.users.domain.Category;
 import mx.rmotad.notifications.users.domain.User;

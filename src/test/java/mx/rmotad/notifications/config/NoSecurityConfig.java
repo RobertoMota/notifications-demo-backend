@@ -6,17 +6,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @TestConfiguration
-  public class NoSecurityConfig {
+public class NoSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain disableSecurity(HttpSecurity http) throws Exception {
-      return http
-          .csrf(csrf -> csrf.ignoringRequestMatchers("/**")
-          )
-          .authorizeHttpRequests(
-              (auth) -> auth
-                  .anyRequest().permitAll()
+  @Bean
+  public SecurityFilterChain disableSecurity(HttpSecurity http) throws Exception {
+    return http
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/**")
+        )
+        .authorizeHttpRequests(
+            (auth) -> auth
+                .anyRequest().permitAll()
 
-          ).build();
-    }
+        ).build();
   }
+}

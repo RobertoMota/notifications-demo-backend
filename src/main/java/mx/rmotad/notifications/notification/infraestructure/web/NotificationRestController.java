@@ -22,7 +22,8 @@ public class NotificationRestController {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(CREATED)
-  NotificationResponse createNotification(@Valid @RequestBody NotificationRequest notificationRequest) {
+  NotificationResponse createNotification(
+      @Valid @RequestBody NotificationRequest notificationRequest) {
     NotificationDomain createdNotification = notificationUseCases.newNotificationUseCase(
         notificationRequest.category(),
         notificationRequest.content());

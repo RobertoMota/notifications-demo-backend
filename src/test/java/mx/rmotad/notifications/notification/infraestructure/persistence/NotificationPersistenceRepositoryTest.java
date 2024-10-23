@@ -1,7 +1,7 @@
 package mx.rmotad.notifications.notification.infraestructure.persistence;
 
-import static mx.rmotad.notifications.notification.domain.model.NotificationCategory.SPORTS;
 import static mx.rmotad.notifications.notification.NotificationTestUtils.createRandomNotificationDomain;
+import static mx.rmotad.notifications.notification.domain.model.NotificationCategory.SPORTS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
