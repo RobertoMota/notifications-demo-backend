@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
-import mx.rmotad.notifications.notifier.application.model.User;
-import mx.rmotad.notifications.notifier.domain.model.NotifierCategory;
-import mx.rmotad.notifications.notifier.domain.model.NotifierChannel;
+import mx.rmotad.notifications.delivery.application.model.User;
+import mx.rmotad.notifications.delivery.domain.model.DeliveryNotificationCategory;
+import mx.rmotad.notifications.delivery.domain.model.DeliveryNotificationChannel;
 import net.datafaker.Faker;
 
 @UtilityClass
@@ -27,12 +27,12 @@ public class NotificationTestUtils {
 
   public static User getRandomUser() {
     return getRandomUser(
-        getEnumRandomSublist(NotifierCategory.class),
-        getEnumRandomSublist(NotifierChannel.class));
+        getEnumRandomSublist(DeliveryNotificationCategory.class),
+        getEnumRandomSublist(DeliveryNotificationChannel.class));
   }
 
-  public static User getRandomUser(List<NotifierCategory> categories,
-      List<NotifierChannel> channels) {
+  public static User getRandomUser(List<DeliveryNotificationCategory> categories,
+      List<DeliveryNotificationChannel> channels) {
     return new User(
         UlidCreator.getMonotonicUlid().toLowerCase(),
         faker.name().name(),
@@ -44,15 +44,15 @@ public class NotificationTestUtils {
   }
 
   public static List<User> getRandomUserList() {
-    List<List<Set<?>>> combinations = generateCombinations(Set.of(NotifierCategory.values()),
-        Set.of(NotifierChannel.values()));
+    List<List<Set<?>>> combinations = generateCombinations(Set.of(DeliveryNotificationCategory.values()),
+        Set.of(DeliveryNotificationChannel.values()));
 
     return combinations.stream()
         .map(combination ->
             getRandomUser(
-                combination.get(0).stream().map(cat -> (NotifierCategory) cat)
+                combination.get(0).stream().map(cat -> (DeliveryNotificationCategory) cat)
                     .collect(Collectors.toList()),
-                combination.get(1).stream().map(cat -> (NotifierChannel) cat)
+                combination.get(1).stream().map(cat -> (DeliveryNotificationChannel) cat)
                     .collect(Collectors.toList())
             ))
         .toList();

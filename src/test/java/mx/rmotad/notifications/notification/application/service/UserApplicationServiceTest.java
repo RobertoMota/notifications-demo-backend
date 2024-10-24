@@ -9,10 +9,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import mx.rmotad.notifications.notifier.application.model.User;
-import mx.rmotad.notifications.notifier.application.service.UserApplicationService;
-import mx.rmotad.notifications.notifier.application.service.UserService;
-import mx.rmotad.notifications.notifier.domain.model.NotifierCategory;
+import mx.rmotad.notifications.delivery.application.model.User;
+import mx.rmotad.notifications.delivery.application.service.UserApplicationService;
+import mx.rmotad.notifications.delivery.application.service.UserService;
+import mx.rmotad.notifications.delivery.domain.model.DeliveryNotificationCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 class UserApplicationServiceTest {
 
-  public static final NotifierCategory NOTIFICATION_CATEGORY = NotifierCategory.SPORTS;
+  public static final DeliveryNotificationCategory NOTIFICATION_CATEGORY = DeliveryNotificationCategory.SPORTS;
   private UserService service;
   private RestTemplate restTemplate;
 
