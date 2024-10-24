@@ -16,6 +16,7 @@ public class UserApplicationService implements UserService {
 
   private final UsersConfig config;
 
+
   @Override
   public List<User> getUsersByCategory(Category category) {
     if (!config.getDefaultUsers().containsKey(category)) {

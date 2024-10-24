@@ -23,12 +23,5 @@ public class AppLogRepository {
         LogDeliveryDocument.class);
     return res;
   }
-//
-//  var lookup = LookupOperation.newLookup().from("notifications")
-//      .localField("_id")
-//      .foreignField("notificationId")
-//      .as("deliveries");
-//  var agg = Aggregation.newAggregation(lookup);
-//  var res = mongoTemplate.aggregate(agg);
 
 }
