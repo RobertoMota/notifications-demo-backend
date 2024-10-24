@@ -27,7 +27,7 @@ public class NotificationFactory {
       NotificationRepository repository, HashGenerator hashGenerator) {
 
     return Try.of(() -> hashGenerator.calculateHash(message))
-        .andThen(hash -> validateIfExists(category, hash, repository))
+        .andThen(hash -> validateIfNotificationExists(category, hash, repository))
         .map(hash -> createNotificationDomain(category, message, hash))
         .onFailure(NoSuchAlgorithmException.class, (ex) -> {
           throw new NotificationError("Could not hash content");
@@ -40,7 +40,7 @@ public class NotificationFactory {
         UlidCreator.getMonotonicUlid().toLowerCase(), category, content, hash, Instant.now());
   }
 
-  private static void validateIfExists(NotificationCategory category, String message,
+  private static void validateIfNotificationExists(NotificationCategory category, String message,
       NotificationRepository repository) {
     if (repository.existsByCategoryChecksum(category, message)) {
       throw new NotificationError(NOTIFICATION_ALREADY_EXISTS);

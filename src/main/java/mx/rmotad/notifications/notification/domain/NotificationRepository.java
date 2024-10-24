@@ -21,7 +21,6 @@ public interface NotificationRepository {
    * Saves the notification
    *
    * @param notification the notification to be persisted
-   * @return
    */
   void save(NotificationDomain notification);
 }

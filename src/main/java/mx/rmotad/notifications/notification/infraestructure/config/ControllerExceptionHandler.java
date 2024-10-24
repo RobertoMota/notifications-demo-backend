@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
+/**
+ * Handles different types of exceptions and map them into Response objects that follow the
+ * application nomenclature
+ */
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -44,6 +48,12 @@ public class ControllerExceptionHandler {
     return buildErrorResponse(ResponseEntity.badRequest(), VALIDATION_ERROR_CODE, errors);
   }
 
+  /**
+   * Look if there is a message in the configuration for the given code
+   *
+   * @param code the code
+   * @return the message related to the code if there is any; the same code otherwise
+   */
   private String getMessage(String code) {
 
     return Try.of(
@@ -61,6 +71,12 @@ public class ControllerExceptionHandler {
     return bodyBuilder.body(new ErrorResponse(code, detail));
   }
 
+  /**
+   * Represents the error response for controllers
+   *
+   * @param code    error code
+   * @param details error message to display
+   */
   public record ErrorResponse(String code, String details) {
 
   }

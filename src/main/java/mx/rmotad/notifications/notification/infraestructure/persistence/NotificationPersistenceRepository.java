@@ -6,6 +6,9 @@ import mx.rmotad.notifications.notification.domain.model.NotificationCategory;
 import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 import org.springframework.stereotype.Component;
 
+/**
+ * Implementation of the Domain Notification Repository
+ */
 @Component
 @RequiredArgsConstructor
 public class NotificationPersistenceRepository implements NotificationRepository {

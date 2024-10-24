@@ -8,7 +8,9 @@ import mx.rmotad.notifications.notification.domain.model.NotificationDomain;
 public interface NotificationProducer {
 
   /**
-   * @param notification
+   * Notifies when a notification has been created
+   *
+   * @param notification the created notification
    */
   void notifyCreated(NotificationDomain notification);
 }

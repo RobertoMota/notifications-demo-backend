@@ -8,10 +8,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HashGeneratorConfig {
 
+  public static final String ALG_SHA_256 = "SHA256";
+
+  /**
+   * Generates hash value using the sha256 algorithm
+   *
+   * @return the hashed value
+   */
   @Bean
   public HashGenerator hashGenerator() {
     return (string ->
-        new String(MessageDigest.getInstance("SHA256").digest(string.getBytes()))
+        new String(MessageDigest.getInstance(ALG_SHA_256).digest(string.getBytes()))
     );
   }
 }
