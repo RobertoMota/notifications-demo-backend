@@ -14,8 +14,8 @@ public class Controller {
 
   @GetMapping
   public Object getLog() {
-    var reg = repository.findLogRegistes();
-    return null;
+    var reg = repository.findLogRegisters();
+    return reg;
   }
 
 }

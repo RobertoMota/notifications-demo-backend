@@ -1,7 +1,9 @@
 package mx.rmotad.notifications.applog.application;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mx.rmotad.notifications.applog.infraestructure.persistance.AppLogRepository;
+import mx.rmotad.notifications.applog.infraestructure.persistance.LogDeliveryDocument;
 import mx.rmotad.notifications.common.UseCase;
 
 @UseCase
@@ -12,6 +14,6 @@ public class AppLogUseCases {
 
 
   public void getAllLogRecords() {
-    appLogRepository.findLogRegistes();
+     appLogRepository.findLogRegisters();
   }
 }

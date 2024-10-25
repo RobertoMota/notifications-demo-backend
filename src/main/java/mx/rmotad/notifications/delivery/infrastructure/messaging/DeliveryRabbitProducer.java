@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mx.rmotad.notifications.delivery.application.DeliveyProducer;
 import mx.rmotad.notifications.delivery.application.model.Notification;
+import org.slf4j.Logger;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class DeliveryRabbitProducer implements DeliveyProducer {
   private final RabbitTemplate notifierRabbitTemplate;
   private final FanoutExchange notifierFanoutExchange;
   private final ObjectMapper mapper;
+
 
   @Override
   public void notifyCreated(Notification notification) {

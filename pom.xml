@@ -171,9 +171,11 @@
               <excludes>
                 <exclude>mx/rmotad/notifications/NotificationDemoApplication.class</exclude>
                 <exclude>mx/rmotad/notifications/**/config/*.class</exclude>
-                <exclude>mx/rmotad/notifications/**/dto/*.class</exclude>
                 <exclude>mx/rmotad/notifications/**/*Config.class</exclude>
                 <exclude>mx/rmotad/notifications/**/utils/</exclude>
+                <exclude>mx/rmotad/notifications/**/model/</exclude>
+                <exclude>mx/rmotad/notifications/**/*Document.class</exclude>
+                <exclude>mx/rmotad/notifications/**/error/</exclude>
               </excludes>
             </configuration>
           </execution>

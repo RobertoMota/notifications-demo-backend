@@ -20,6 +20,11 @@ public class NotificationRabbitListener {
   private final DeliveryUseCases deliveryUseCases;
   private final ObjectMapper mapper;
 
+  /**
+   * Receives the notification created event
+   *
+   * @param notification the created notification
+   */
   @RabbitListener(queues = {NOTIFIER_DELIVERED_CREATED_QUEUE})
   public void receiveMessage(String notification) {
     log.debug("Received : [{}]", notification);

@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NotifierConfig {
 
+  /**
+   * Retrieves the correct notifier for the given channel
+   * @return
+   */
   @Bean
   public NotifierFactory notifierFactory() {
     return (channel) ->

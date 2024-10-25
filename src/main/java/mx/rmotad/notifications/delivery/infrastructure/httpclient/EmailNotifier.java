@@ -13,6 +13,6 @@ public class EmailNotifier implements Notifier {
   public List<String> notify(String message, List<User> destinationList) {
     log.debug("MockedCall");
 
-    return destinationList.stream().map(User::phone).collect(Collectors.toList());
+    return destinationList.stream().map(User::email).collect(Collectors.toList());
   }
 }

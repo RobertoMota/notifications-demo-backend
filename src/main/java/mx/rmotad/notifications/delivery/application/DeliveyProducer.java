@@ -9,7 +9,9 @@ import mx.rmotad.notifications.delivery.application.model.Notification;
 public interface DeliveyProducer {
 
   /**
-   * @param notification
+   * Notifies the notification creation
+   *
+   * @param notification created notification
    */
   void notifyCreated(Notification notification);
 }
